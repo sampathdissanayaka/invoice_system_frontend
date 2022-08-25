@@ -18,7 +18,7 @@ export class CustomerInvoiceComponent implements OnInit {
   productQualityId: number = 0;
   discount: number = 0;
   totalAmount: number = 0;
-  customer:any;
+  customer: any;
 
   id: string = "";
 
@@ -33,42 +33,67 @@ export class CustomerInvoiceComponent implements OnInit {
   setId(id: any) {
     this.id = id;
     console.log(this.id);
-    if(id){
+    if (id) {
       this.getCustomer(id);
     }
   }
 
   handleSubmit() {
-    let requestBody = {
-      "CustomerName": this.customerName,
-      "TransactionDate": this.date,
-      "ProductId": this.productId,
-      "ProductQualityId": this.productQualityId,
-      "Discount": this.discount,
-      "TotalAmount": this.totalAmount
-    }
-    console.log(requestBody);
-    this.customerService.InsertCustomers("api/customer", requestBody).subscribe((response: any) => {
-      try {
-        alert(response);
-        this.clear();
-      } catch (error) {
-        alert(error);
+    
+    if(!this.id){
+      let requestBodyInsert = {
+        "CustomerName": this.customerName,
+        "TransactionDate": this.date,
+        "ProductId": this.productId,
+        "ProductQualityId": this.productQualityId,
+        "Discount": this.discount,
+        "TotalAmount": this.totalAmount
       }
-    });
+      this.customerService.InsertCustomers("api/customer", requestBodyInsert).subscribe((response: any) => {
+        try {
+          alert(response);
+          this.clear();
+        } catch (error) {
+          alert(error);
+        }
+      });
+
+    }else{
+      let requestBodyUpdate = {
+        "Id":this.id,
+        "CustomerName": this.customerName,
+        "TransactionDate": this.date,
+        "ProductId": this.productId,
+        "ProductQualityId": this.productQualityId,
+        "Discount": this.discount,
+        "TotalAmount": this.totalAmount
+      }
+      this.customerService.UpdateCustomer("api/customer", requestBodyUpdate).subscribe((response: any) => {
+        try {
+          alert(response);
+          this.clear();
+        } catch (error) {
+          alert(error);
+        }
+      });
+
+    }
+    
   }
 
-  getCustomer(id:any) {
+ 
+  getCustomer(id: any) {
     this.customerService.getCustomer("api/customer/" + id).subscribe((response: any) => {
-      console.log(response);
-      this.customerName = response[0].CustomerName;
-      console.log(response.CustomerName);
-      console.log(this.customerName)
-      this.date = response[0].TransactionDate;
-      this.productId = response[0].ProductId;
-      this.productQualityId = response[0].ProductQualityId;
-      this.discount = response[0].Discount;
-      this.totalAmount = response[0].TotalAmount;
+      // console.log(response);
+      this.customer = response[0];
+      this.customerName = this.customer.CustomerName;
+      // console.log(response.CustomerName);
+      // console.log(this.customerName)
+      this.date = this.customer.TransactionDate;
+      this.productId = this.customer.ProductId;
+      this.productQualityId = this.customer.ProductQualityId;
+      this.discount = this.customer.Discount;
+      this.totalAmount = this.customer.TotalAmount;
 
     });
   }
@@ -82,7 +107,7 @@ export class CustomerInvoiceComponent implements OnInit {
     this.discount = 0;
     this.totalAmount = 0;
   }
-  
+
 
 
 }
