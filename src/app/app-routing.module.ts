@@ -5,6 +5,7 @@ import { CustomerInvoiceViewsComponent } from './customer-invoice-views/customer
 
 const routes: Routes = [
   { path: 'customer-invoice', component: CustomerInvoiceComponent },
+  { path: 'customer-invoice/:id', component: CustomerInvoiceComponent },
   { path: 'customer-invoice-views', component: CustomerInvoiceViewsComponent },
 ];
 

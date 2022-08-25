@@ -11,19 +11,23 @@
             <th scope="col">Product quantity</th>
             <th scope="col">Discount</th>
             <th scope="col">Total amount</th>
+            <th colspan="2">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Chamara</td>
-            <td>2022-08-24</td>
-            <td>Laptop</td>
-            <td>High</td>
-            <td>2000</td>
-            <td>148000</td>
-          </tr>
-         
-          
+          <tr *ngFor="let customer of customers">
+            <td>{{customer.CustomerName}}</td>
+            <td>{{customer.TransactionDate | date}}</td>
+            <td>{{customer.ProductId}}</td>
+            <td *ngIf="customer.ProductQualityId ==1">High</td>
+            <td *ngIf="customer.ProductQualityId ==2">Medium</td>
+            <td *ngIf="customer.ProductQualityId ==3">Low</td>
+            <td>{{customer.Discount}}</td>
+            <td>{{customer.TotalAmount}}</td>
+            <td><button type="button" class="btn btn-warning" [routerLink]="['/customer-invoice/',customer.Id]">Update</button></td>
+            <td><button type="button" class="btn btn-danger" (click)="handleDelete(customer.Id)">Delete</button></td>
+
+          </tr> 
         </tbody>
       </table>
     </div>

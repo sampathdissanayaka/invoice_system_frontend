@@ -6,25 +6,25 @@
                 <div class="form-group row mb-2">
                     <label for="inputCustomerName" class="col-sm-2 col-form-label">Customer name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputCustomerName" placeholder="Customer name">
+                        <input type="text" [(ngModel)]="customerName" [ngModelOptions]="{standalone: true}" class="form-control" id="inputCustomerName" placeholder="Customer name">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="date" class="col-sm-2 col-form-label">Transaction date</label>
                     <div class="col-sm-10">
-                        <input type="date" class="form-control" id="date" placeholder="Transaction date">
+                        <input type="date" [(ngModel)]="date" [ngModelOptions]="{standalone: true}" class="form-control" id="date" placeholder="Transaction date">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="select" class="col-sm-2 col-form-label">Purchased product</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="select">
+                        <select class="form-control" id="select" (change)="handleSelectProduct($event)" [(ngModel)]="productId" [ngModelOptions]="{standalone: true}">
                             <option>-- select --</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            <option value=1>Laptop</option>
+                            <option value=2>Mouse</option>
+                            <option value=3>KeyBoard</option>
+                            <option value=4>Pendrive</option>
+                            <option value=5>Lap Bag</option>
                         </select>
                     </div>
                 </div>
@@ -34,19 +34,19 @@
                         <legend class="col-form-label col-sm-2 pt-0">Product quantity</legend>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" [ngModelOptions]="{standalone: true}" [(ngModel)]="productQualityId" value=1 >
                                 <label class="form-check-label" for="gridRadios1">
                                     High
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" [ngModelOptions]="{standalone: true}" [(ngModel)]="productQualityId" value=2>
                                 <label class="form-check-label" for="gridRadios2">
                                     Medium
                                 </label>
                             </div>
                             <div class="form-check disabled">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" [ngModelOptions]="{standalone: true}" [(ngModel)]="productQualityId" value=3>
                                 <label class="form-check-label" for="gridRadios3">
                                     Low
                                 </label>
@@ -57,13 +57,13 @@
                 <div class="form-group row mb-2">
                     <label for="discount" class="col-sm-2 col-form-label">Discount</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="discount" placeholder="Discount">
+                        <input type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="discount" class="form-control" id="discount" placeholder="Discount">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
                     <label for="amount" class="col-sm-2 col-form-label">Total amount</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="amount" placeholder="Total amount">
+                        <input type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="totalAmount" class="form-control" id="amount" placeholder="Total amount">
                     </div>
                 </div>
                 <!-- <div class="form-group row">
@@ -79,7 +79,9 @@
                 </div> -->
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" (click)="handleSubmit()" class="btn btn-primary">Submit</button>
+                        <button type="submit" (click)="clear()" class="btn btn-warning ml-2">Clear</button>
+
                     </div>
                 </div>
             </form>
